@@ -1,7 +1,14 @@
 from Game import Game
+from flask import Flask
 
-monopoly = Game()
+app = Flask(__name__)
 
-monopoly.setup()
+@app.route('/')
+def hello_world():
+    monopoly = Game()
+    return "Hello World"
+    
 
-monopoly.play()
+#monopoly.setup()
+
+#monopoly.play()
