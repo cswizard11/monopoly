@@ -628,13 +628,14 @@ class Game:
         return_list = []
         return_list_str = []
         choice = None
+        money_amount = 0
         while not(choice == len(choices_str)):
+            old_money_amount = money_amount
             choice = self.get_input(question1, choices_str, cancel='Continue')
             if not(choice == len(choices_str)):
                 if choices_str[choice] == 'Money':
                     get_money = None
                     money_options = []
-                    money_amount = 0
                     while not(get_money == len(money_options)):
                         if (money_amount + 100) <= player.money:
                             money_options = [1, 10, 100]
@@ -649,7 +650,7 @@ class Game:
                         get_money = self.get_input(question2, [str(x) for x in money_options], cancel='Continue')
                         if not(get_money == len(money_options)):
                             money_amount += money_options[get_money]
-                    if money_amount > 0:
+                    if money_amount > old_money_amount:
                         return_list.append(money_amount)
                         return_list_str.append('$' + str(money_amount))
                 elif choices_str[choice] == 'Get Out of Jail Free card':
