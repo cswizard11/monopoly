@@ -1,0 +1,7 @@
+<!doctype html>
+<body>{% autoescape false %} {{ dialog | replace('\n', '<br>') }} {% endautoescape %}</body>
+<form action='/setup-pt2', method="post">
+    {% for item in nums %}
+    <input type="submit" value={{item}} name='next_number'/>
+    {% endfor %}
+</form>

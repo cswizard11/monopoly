@@ -5,9 +5,12 @@ from Property import Property
 from Railroad import Railroad
 from SpecialSpace import SpecialSpace
 from Utility import Utility
+import asyncio
 
 class Game:
-    def __init__(self):
+    def __init__(self, web_info):
+        self.web_info = web_info
+        self.player_choice = 1
         self.board = Board()
         self.player_array = []
         self.choice_list = ['mortgage', 'unmortgage', 'sell house', 'sell hotel']
@@ -19,21 +22,14 @@ class Game:
                              'buy house': 'Which property would you like to buy a house for? ',
                              'buy hotel': 'Which property would you like to buy a hotel for? '}
 
-    def setup(self):
-        self.num_players = 0
-        while not(1 < self.num_players < 7):
-            self.num_players = input('How many players are playing? (2-6) ')
-            try:
-                self.num_players = int(self.num_players)
-            except:
-                self.num_players = 0
+    async def setup(self):
+        self.get_input('How many players are playing? (2-6) ', [str(x) for x in range(1,7)], cancel=False)
+        current_loop = asyncio.get_running_loop()
+        task1 = current_loop.create_task(self.get_web_input())
+        self.num_players = await task1
+        self.web_info.information += str(self.num_players) + '\n'
 
-        for i in range(1, self.num_players + 1):
-            name = input('Name for Player ' + str(i) + ' ')
-            player = Player(name)
-            self.player_array.append(player)
-
-        print('Turn order will be determined by dice roll, highest roll goes first')
+        '''print('Turn order will be determined by dice roll, highest roll goes first')
         for i in self.player_array:
             input(i.name + ', press enter to roll')
             i.roll()
@@ -52,7 +48,7 @@ class Game:
         highest_roller = same_rolls[0]
         print(highest_roller.name + ' will go first')
         while not(self.player_array[0] == highest_roller):
-            self.player_array.append(self.player_array.pop(0))
+            self.player_array.append(self.player_array.pop(0))'''
         
     def handleAction(self, action):
         if action.type == 'make payment':
@@ -679,16 +675,15 @@ class Game:
 
     def get_input(self, prompt, item_array, cancel='Cancel'):
         items = self.list_items(item_array, cancel)
-        print(items[0])
-        answer = 0
-        num = items[1]
-        while not(0 < answer <= num):
-            answer = input(prompt)
-            try:
-                answer = int(answer)
-            except:
-                answer = -1
-        return answer - 1
+        self.web_info.information += items[0]
+        self.web_info.information += prompt
+        self.web_info.type = items[1]
+        self.player_choice = 0
+
+    async def get_web_input(self):
+        while self.player_choice == 0:
+            await asyncio.sleep(0)
+        return self.player_choice
 
     def raise_money(self, player):
         get_money = self.get_input('Would you like to raise money? ', ['no', 'yes'], cancel=False)

@@ -1,0 +1,7 @@
+<!doctype html>
+<h1>{{ dialog }}</h1>
+<form action='/play', method="post">
+    {% for item in names %}
+    <input type="text" name={{item}}/>
+    {% endfor %}
+</form>
