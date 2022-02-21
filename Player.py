@@ -18,16 +18,18 @@ class Player:
         dice1 = randint(1,6)
         dice2 = randint(1,6)
         total = dice1 + dice2
-        print(str(dice1) + ' + ' + str(dice2) + ' = ' + str(total))
+        text = ''
+        text += str(dice1) + ' + ' + str(dice2) + ' = ' + str(total) + '\n'
         if dice1 == dice2:
             self.doubles += 1
-            print('Doubles!')
+            text += 'Doubles!\n'
         else:
             self.doubles = 0
         self.dice_roll = total
+        return text
 
     def print_money(self):
-        print(self.name + ' has $' + str(self.money))
+        return self.name + ' has $' + str(self.money) + '\n'
 
     def sort_properties(self, board_property_list):
         self.properties_owned.sort(key=(lambda x: board_property_list.index(x)))

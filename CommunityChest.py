@@ -45,7 +45,7 @@ class CommunityChest:
         self.empty_deck.append(self.get_out_of_jail_free)
 
     def shuffle(self):
-        print('Shuffling Community Chest cards...')
+        #print('Shuffling Community Chest cards...')
         while len(self.empty_deck) > 0:
             card_num = randint(0, len(self.empty_deck) - 1)
             card = self.empty_deck.pop(card_num)

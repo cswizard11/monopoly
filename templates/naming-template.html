@@ -1,7 +1,11 @@
 <!doctype html>
-<h1>{{ dialog }}</h1>
-<form action='/play', method="post">
+<div style="max-height:500px;height:auto;width:500px;font:16px/26px Georgia, Garamond, Serif;overflow:auto;display:flex;flex-direction:column-reverse;">
+    {% autoescape false %} {{ dialog | replace('\n', '<br>') }} {% endautoescape %}</div>
+<br>
+<form action='/setup', method="post">
     {% for item in names %}
-    <input type="text" name={{item}}/>
+    <label for='{{item}}'>{{item}}</label><br>
+    <input type="text" name='{{item}}'/><br>
     {% endfor %}
+    <input type="submit" name='submit'/>
 </form>
