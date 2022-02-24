@@ -6,8 +6,9 @@ from Railroad import Railroad
 from SpecialSpace import SpecialSpace
 from Utility import Utility
 import asyncio
+import json
 
-class Game:
+class Game(object):
     def __init__(self, web_info):
         self.web_info = web_info
         self.player_choice = None
@@ -493,7 +494,7 @@ class Game:
             self.web_info.information += player.print_money()
             next_action = None
         elif choice == 'Roll':
-            player.roll()
+            self.web_info.information += player.roll()
             if player.doubles == 1:
                 self.web_info.information += player.name + ' sucessfully rolled doubles and has left jail\n'
                 player.jail = 0
