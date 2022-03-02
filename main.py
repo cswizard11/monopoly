@@ -9,7 +9,6 @@ from fastapi.staticfiles import StaticFiles
 import starlette.status as status
 import uuid
 from datetime import datetime
-import os
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
