@@ -1,0 +1,12 @@
+<!doctype html>
+<body style="position:fixed;top: 75px;left: 200px; right: 200px;">
+<div style="max-height:690px;height:auto;width:600px;font:16px/26px Georgia, Garamond, Serif;overflow:auto;display:flex;flex-direction:column-reverse;">
+    {% autoescape false %} {{ dialog | replace('\n', '<br>') }} {% endautoescape %}</div>
+<br>
+<form action='/play/{{game_id}}', method="post">
+    {% for item in nums %}
+    <input type="submit" value='{{item}}' name='choice' style="height: 25px; width:dynamic; min-width: 50px; margin-bottom: 10px;"/>
+    {% endfor %}
+</form>
+<img src='/static/images/monopoly_board.jpg' alt='Monopoly Board' style='width:700px;height:700px;position:fixed;top: 75px;left: 1000px;'>
+</body>

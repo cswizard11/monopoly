@@ -51,7 +51,7 @@ class Chance:
         self.empty_deck.append(self.nearest_rr)
 
     def shuffle(self):
-        print('Shuffling Chance cards...')
+        #print('Shuffling Chance cards...')
         while len(self.empty_deck) > 0:
             card_num = randint(0, len(self.empty_deck) - 1)
             card = self.empty_deck.pop(card_num)
